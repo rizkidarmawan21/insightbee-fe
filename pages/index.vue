@@ -3,7 +3,7 @@ const toggleAi = ref(true)
 const search = ref('')
 const results:any = ref({})
 const loading = ref(false)
-const baseUrl = 'https://insight-bee-backend.vercel.app'
+const baseUrl = 'https://insight-bee.fly.dev'
 let debounceTimeout: NodeJS.Timeout | null = null;
 
 // fetch data search from database
