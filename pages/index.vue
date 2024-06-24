@@ -10,6 +10,7 @@ let debounceTimeout: NodeJS.Timeout | null = null;
 
 // fetch data from ai
 const fetchAi = async () => {
+    results.value = null
     try {
         const response = await fetch(baseUrl + '/api/knowledge/ask', {
             method: 'POST',
@@ -57,6 +58,16 @@ const openUrl = (url: string, target: string) => {
     window.open(url, target)
 }
 
+const handleToggle = () => {
+    results.value = null
+    toggleAi.value = !toggleAi.value
+    if (toggleAi.value) {
+        fetchAi()
+    } else {
+        fetchDb()
+    }
+}
+
 // Watch for changes in the search ref with debounce
 watch(search, (newValue) => {
     if (debounceTimeout) {
@@ -89,7 +100,7 @@ const searching = (e: any) => {
             <label class="text-subtitle text-sm">Qiscus Copilot</label>
             <div class="flex">
                 <label for="toggle" class="flex items-center cursor-pointer">
-                    <div @click="toggleAi = !toggleAi"
+                    <div @click="handleToggle"
                         class="toggle-bg w-10 h-6 bg-gray-400 rounded-full p-[2px] duration-300 ease-in-out"
                         :class="{ 'bg-teal-500': toggleAi }">
                         <div class="toggle-dot w-5 h-full bg-white rounded-full shadow-md transform duration-300 ease-in-out"
@@ -132,7 +143,8 @@ const searching = (e: any) => {
 
                                 <div class="space-y-2">
                                     <div v-for="(data, index) in results.data?.references" :key="index"
-                                        class="p-2 flex gap-2 cursor-pointer hover:bg-slate-50/50 rounded-lg" @click="openUrl(data.html_url, '_blank')">
+                                        class="p-2 flex gap-2 cursor-pointer hover:bg-slate-50/50 rounded-lg"
+                                        @click="openUrl(data.html_url, '_blank')">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24"
                                                 height="24" fill="currentColor" class="text-slate-500">
