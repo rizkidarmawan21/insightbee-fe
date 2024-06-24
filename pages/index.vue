@@ -11,14 +11,16 @@ let debounceTimeout: NodeJS.Timeout | null = null;
 // fetch data from ai
 const fetchAi = async () => {
     try {
-        const response = await fetch(baseUrl + '/api/knowledge/question', {
+        const response = await fetch(baseUrl + '/api/knowledge/ask', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 // 'ngrok-skip-browser-warning': 'true'
             },
             body: JSON.stringify({
-                question: search.value
+                ask: search.value,
+                enableCopilot: true,
+                maxSource: 4
             })
         })
         const data = await response.json()
