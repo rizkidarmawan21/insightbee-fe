@@ -130,9 +130,9 @@ const searching = (e: any) => {
                                     References
                                 </label>
 
-                                <div class="p-4 space-y-3">
+                                <div class="space-y-2">
                                     <div v-for="(data, index) in results.data?.references" :key="index"
-                                        class="flex gap-2">
+                                        class="p-2 flex gap-2 cursor-pointer hover:bg-slate-50/50 rounded-lg" @click="openUrl(data.html_url, '_blank')">
                                         <div>
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24"
                                                 height="24" fill="currentColor" class="text-slate-500">
@@ -142,9 +142,12 @@ const searching = (e: any) => {
                                         </div>
 
                                         <div>
-                                            <a :href="data" target="_blank" class="text-sm font-semibold text-teal-500">
-                                                {{ data }}
-                                            </a>
+                                            <h1 class="text-sm font-semibold text-teal-500">
+                                                {{ data.title }}
+                                            </h1>
+                                            <p class="text-xs text-slate-600">
+                                                {{ data.html_url }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
