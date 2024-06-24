@@ -32,6 +32,7 @@ const fetchAi = async () => {
 }
 
 const fetchDb = async () => {
+    results.value = null
     try {
         const response = await fetch(`https://support.qiscus.com/api/v2/help_center/articles/search?query=${search.value}`, {
             method: 'GET',
